@@ -1,6 +1,7 @@
 package com.example.claude;
 
 import com.example.claude.dto.*;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -25,13 +26,13 @@ public class StudentController {
     }
 
     @PostMapping
-    public StudentResponseDTO createStudent(@RequestBody StudentRequestDTO dto) {
+    public StudentResponseDTO createStudent(@Valid @RequestBody StudentRequestDTO dto) {
         return studentService.createStudent(dto);
     }
 
     @PutMapping("/{id}")
     public StudentResponseDTO updateStudent(@PathVariable Long id,
-                                            @RequestBody StudentRequestDTO dto) {
+                                            @Valid @RequestBody StudentRequestDTO dto) {
         return studentService.updateStudent(id, dto);
     }
 
