@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+
+  # PostgreSQL база данных
+  db:
+    image: postgres:15
+    container_name: claude_db
+    environment:
+      POSTGRES_DB: claude_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5432:5432"
+
+  # Spring Boot приложение
+  app:
+    build: .
+    container_name: claude_app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/claude_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1234
+    depends_on:
+      - db
