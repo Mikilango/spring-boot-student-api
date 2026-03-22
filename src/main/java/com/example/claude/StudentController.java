@@ -2,6 +2,7 @@ package com.example.claude;
 
 import com.example.claude.dto.*;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -39,5 +40,13 @@ public class StudentController {
     @DeleteMapping("/{id}")
     public void deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
+    }
+
+    @GetMapping("/paged")
+    public Page<StudentResponseDTO> getAllStudentsPaged(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return studentService.getAllStudentsPaged(page, size, sortBy);
     }
 }

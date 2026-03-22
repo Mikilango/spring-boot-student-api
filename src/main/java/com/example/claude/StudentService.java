@@ -2,7 +2,12 @@ package com.example.claude;
 
 import com.example.claude.dto.*;
 import com.example.claude.exception.StudentNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,4 +72,11 @@ public class StudentService {
         }
         studentRepository.deleteById(id);
     }
+
+    public Page<StudentResponseDTO> getAllStudentsPaged(int page, int size, String sortBy) {
+        Pageable pagable = PageRequest.of(page, size, Sort.by(sortBy));
+        return studentRepository.findAll(pagable)
+                .map(this::toResponseDTO);
+    }
+
 }
