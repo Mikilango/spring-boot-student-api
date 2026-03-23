@@ -27,8 +27,16 @@ public class SecurityConfig {
                 .sessionManagement(s -> s
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll() // регистрация и вход — открыты
-                        .anyRequest().authenticated()           // всё остальное — только с токеном
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/v3/api-docs/**",
+                                "/v3/api-docs",
+                                "/swagger-resources/**",
+                                "/webjars/**"
+                        ).permitAll()
+                        .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
