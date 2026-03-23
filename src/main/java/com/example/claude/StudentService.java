@@ -2,12 +2,8 @@ package com.example.claude;
 
 import com.example.claude.dto.*;
 import com.example.claude.exception.StudentNotFoundException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,68 +11,49 @@ import java.util.stream.Collectors;
 public class StudentService {
 
     private final StudentRepository studentRepository;
+    private final StudentMapper studentMapper;
 
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository,
+                          StudentMapper studentMapper) {
         this.studentRepository = studentRepository;
-    }
-
-    // Конвертация Student → StudentResponseDTO
-    private StudentResponseDTO toResponseDTO(Student student) {
-        return new StudentResponseDTO(
-                student.getId(),
-                student.getName(),
-                student.getCity()
-        );
-    }
-
-    // Конвертация StudentRequestDTO → Student
-    private Student toEntity(StudentRequestDTO dto) {
-        Student student = new Student();
-        student.setName(dto.getName());
-        student.setAge(dto.getAge());
-        student.setCity(dto.getCity());
-        return student;
+        this.studentMapper = studentMapper;
     }
 
     public List<StudentResponseDTO> getAllStudents() {
         return studentRepository.findAll()
                 .stream()
-                .map(this::toResponseDTO)
+                .map(studentMapper::toResponseDTO) // ← MapStruct!
                 .collect(Collectors.toList());
     }
 
     public StudentResponseDTO getStudentById(Long id) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new StudentNotFoundException(id));
-        return toResponseDTO(student);
+        return studentMapper.toResponseDTO(student); // ← MapStruct!
     }
 
     public StudentResponseDTO createStudent(StudentRequestDTO dto) {
-        Student student = toEntity(dto);
-        Student saved = studentRepository.save(student);
-        return toResponseDTO(saved);
+        Student student = studentMapper.toEntity(dto); // ← MapStruct!
+        return studentMapper.toResponseDTO(studentRepository.save(student));
     }
 
     public StudentResponseDTO updateStudent(Long id, StudentRequestDTO dto) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new StudentNotFoundException(id));
-        student.setName(dto.getName());
-        student.setAge(dto.getAge());
-        student.setCity(dto.getCity());
-        return toResponseDTO(studentRepository.save(student));
+        studentMapper.updateEntity(dto, student); // ← MapStruct!
+        return studentMapper.toResponseDTO(studentRepository.save(student));
     }
 
     public void deleteStudent(Long id) {
         if (!studentRepository.existsById(id)) {
-            throw new StudentNotFoundException(id); // ✅
+            throw new StudentNotFoundException(id);
         }
         studentRepository.deleteById(id);
     }
 
     public Page<StudentResponseDTO> getAllStudentsPaged(int page, int size, String sortBy) {
-        Pageable pagable = PageRequest.of(page, size, Sort.by(sortBy));
-        return studentRepository.findAll(pagable)
-                .map(this::toResponseDTO);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return studentRepository.findAll(pageable)
+                .map(studentMapper::toResponseDTO); // ← MapStruct!
     }
-
 }
