@@ -56,4 +56,33 @@ public class StudentService {
         return studentRepository.findAll(pageable)
                 .map(studentMapper::toResponseDTO); // ← MapStruct!
     }
+
+    // Найти по городу
+    public List<StudentResponseDTO> getStudentsByCity(String city) {
+        return studentRepository.findByCity(city)
+                .stream()
+                .map(studentMapper::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    // Найти по имени
+    public List<StudentResponseDTO> getStudentsByName(String name) {
+        return studentRepository.findByNameContaining(name)
+                .stream()
+                .map(studentMapper::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    // Найти старше возраста
+    public List<StudentResponseDTO> getStudentsOlderThan(int age) {
+        return studentRepository.findByAgeGreaterThan(age)
+                .stream()
+                .map(studentMapper::toResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    // Подсчитать по городу
+    public Long countStudentsByCity(String city) {
+        return studentRepository.countByCity(city);
+    }
 }
