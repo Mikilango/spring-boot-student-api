@@ -1,7 +1,8 @@
-package com.example.claude;
+package com.example.claude.mapper;
 
 import com.example.claude.dto.StudentRequestDTO;
 import com.example.claude.dto.StudentResponseDTO;
+import com.example.claude.entity.Student;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 

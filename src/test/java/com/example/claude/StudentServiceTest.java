@@ -2,7 +2,10 @@ package com.example.claude;
 
 import com.example.claude.dto.StudentRequestDTO;
 import com.example.claude.dto.StudentResponseDTO;
+import com.example.claude.entity.Student;
 import com.example.claude.exception.StudentNotFoundException;
+import com.example.claude.repository.StudentRepository;
+import com.example.claude.service.StudentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

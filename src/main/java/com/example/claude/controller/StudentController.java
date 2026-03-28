@@ -1,5 +1,6 @@
-package com.example.claude;
+package com.example.claude.controller;
 
+import com.example.claude.service.StudentService;
 import com.example.claude.dto.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

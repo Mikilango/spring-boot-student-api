@@ -1,5 +1,8 @@
-package com.example.claude;
+package com.example.claude.controller;
 
+import com.example.claude.repository.UserRepository;
+import com.example.claude.entity.User;
+import com.example.claude.security.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 

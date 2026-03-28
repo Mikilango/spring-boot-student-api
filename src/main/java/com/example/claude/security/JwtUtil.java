@@ -1,4 +1,4 @@
-package com.example.claude;
+package com.example.claude.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

@@ -1,4 +1,4 @@
-package com.example.claude;
+package com.example.claude.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

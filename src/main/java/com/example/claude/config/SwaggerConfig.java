@@ -1,4 +1,4 @@
-package com.example.claude;
+package com.example.claude.config;
 
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;

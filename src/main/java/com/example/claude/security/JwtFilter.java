@@ -1,4 +1,4 @@
-package com.example.claude;
+package com.example.claude.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

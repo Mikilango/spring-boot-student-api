@@ -1,6 +1,9 @@
-package com.example.claude;
+package com.example.claude.service;
 
+import com.example.claude.mapper.StudentMapper;
+import com.example.claude.repository.StudentRepository;
 import com.example.claude.dto.*;
+import com.example.claude.entity.Student;
 import com.example.claude.exception.StudentNotFoundException;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;

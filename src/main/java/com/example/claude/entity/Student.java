@@ -1,4 +1,4 @@
-package com.example.claude;
+package com.example.claude.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
