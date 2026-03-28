@@ -13,7 +13,6 @@ public class JwtUtil {
     private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final long EXPIRATION = 1000 * 60 * 60 * 24; // 24 часа
 
-    // Создать токен
     public String generateToken(String username) {
         return Jwts.builder()
                 .setSubject(username)
@@ -23,7 +22,6 @@ public class JwtUtil {
                 .compact();
     }
 
-    // Получить имя пользователя из токена
     public String extractUsername(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(key)
@@ -33,7 +31,6 @@ public class JwtUtil {
                 .getSubject();
     }
 
-    // Проверить токен
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder()

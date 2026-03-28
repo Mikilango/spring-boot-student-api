@@ -4,6 +4,7 @@ import com.example.claude.dto.*;
 import com.example.claude.exception.StudentNotFoundException;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,7 +58,6 @@ public class StudentService {
                 .map(studentMapper::toResponseDTO); // ← MapStruct!
     }
 
-    // Найти по городу
     public List<StudentResponseDTO> getStudentsByCity(String city) {
         return studentRepository.findByCity(city)
                 .stream()
@@ -65,7 +65,6 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
-    // Найти по имени
     public List<StudentResponseDTO> getStudentsByName(String name) {
         return studentRepository.findByNameContaining(name)
                 .stream()
@@ -73,7 +72,6 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
-    // Найти старше возраста
     public List<StudentResponseDTO> getStudentsOlderThan(int age) {
         return studentRepository.findByAgeGreaterThan(age)
                 .stream()
@@ -81,7 +79,6 @@ public class StudentService {
                 .collect(Collectors.toList());
     }
 
-    // Подсчитать по городу
     public Long countStudentsByCity(String city) {
         return studentRepository.countByCity(city);
     }

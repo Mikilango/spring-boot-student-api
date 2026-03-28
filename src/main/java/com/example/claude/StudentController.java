@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -60,28 +61,24 @@ public class StudentController {
         return studentService.getAllStudentsPaged(page, size, sortBy);
     }
 
-    // GET /students/city/Бишкек
     @GetMapping("/city/{city}")
     @Operation(summary = "Найти студентов по городу")
     public List<StudentResponseDTO> getStudentsByCity(@PathVariable String city) {
         return studentService.getStudentsByCity(city);
     }
 
-    // GET /students/search?name=Мир
     @GetMapping("/search")
     @Operation(summary = "Поиск студентов по имени")
     public List<StudentResponseDTO> searchStudents(@RequestParam String name) {
         return studentService.getStudentsByName(name);
     }
 
-    // GET /students/older-than?age=20
     @GetMapping("/older-than")
     @Operation(summary = "Найти студентов старше возраста")
     public List<StudentResponseDTO> getStudentsOlderThan(@RequestParam int age) {
         return studentService.getStudentsOlderThan(age);
     }
 
-    // GET /students/count/Бишкек
     @GetMapping("/count/{city}")
     @Operation(summary = "Подсчитать студентов по городу")
     public Long countStudentsByCity(@PathVariable String city) {

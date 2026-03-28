@@ -21,7 +21,6 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // Регистрация
     @PostMapping("/register")
     public String register(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -30,7 +29,6 @@ public class AuthController {
         return "Пользователь успешно зарегистрирован!";
     }
 
-    // Вход
     @PostMapping("/login")
     public Map<String, String> login(@RequestBody User user) {
         User found = userRepository.findByUsername(user.getUsername())

@@ -2,6 +2,7 @@ package com.example.claude;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 @Entity
 @Table(name = "students")
 @Data
@@ -18,5 +19,5 @@ public class Student {
 
     private int age;
     private String city;
-    
+
 }
