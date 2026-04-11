@@ -26,25 +26,25 @@ public class StudentService {
     public List<StudentResponseDTO> getAllStudents() {
         return studentRepository.findAll()
                 .stream()
-                .map(studentMapper::toResponseDTO) // ← MapStruct!
+                .map(studentMapper::toResponseDTO)
                 .collect(Collectors.toList());
     }
 
     public StudentResponseDTO getStudentById(Long id) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new StudentNotFoundException(id));
-        return studentMapper.toResponseDTO(student); // ← MapStruct!
+        return studentMapper.toResponseDTO(student);
     }
 
     public StudentResponseDTO createStudent(StudentRequestDTO dto) {
-        Student student = studentMapper.toEntity(dto); // ← MapStruct!
+        Student student = studentMapper.toEntity(dto);
         return studentMapper.toResponseDTO(studentRepository.save(student));
     }
 
     public StudentResponseDTO updateStudent(Long id, StudentRequestDTO dto) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new StudentNotFoundException(id));
-        studentMapper.updateEntity(dto, student); // ← MapStruct!
+        studentMapper.updateEntity(dto, student);
         return studentMapper.toResponseDTO(studentRepository.save(student));
     }
 
@@ -58,7 +58,7 @@ public class StudentService {
     public Page<StudentResponseDTO> getAllStudentsPaged(int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
         return studentRepository.findAll(pageable)
-                .map(studentMapper::toResponseDTO); // ← MapStruct!
+                .map(studentMapper::toResponseDTO);
     }
 
     public List<StudentResponseDTO> getStudentsByCity(String city) {
